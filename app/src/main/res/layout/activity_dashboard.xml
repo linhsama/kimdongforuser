@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".DashboardActivity"
-    android:background="@drawable/custom_background"
-    android:id="@+id/swipe">
+    android:background="@drawable/custom_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +14,6 @@
 
         <LinearLayout
             android:layout_above="@id/group_bottomnavigation"
-            android:id="@+id/lnWebview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -24,7 +22,6 @@
 
 
             <LinearLayout
-                android:id="@+id/progressLayout"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="#ffffff"

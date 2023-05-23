@@ -7,14 +7,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
@@ -191,6 +195,46 @@ public class DashboardActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                 }
             }
+        });
+        myWebView.setDownloadListener(new DownloadListener() {
+
+
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+
+                try {
+                    String fileName = (contentDisposition).replace("attachment; filename=", "");
+
+                    DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+
+                    request.setAllowedOverRoaming(false).setTitle(fileName) //Download Manager Title
+                            .setDescription("Downloading...") // Download manager Discription
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                            .setDestinationInExternalPublicDir(
+                                    Environment.DIRECTORY_DOWNLOADS, // It can be any stanaderd directory Like DCIM,Downloads etc...
+                                    "/KimDong/" + fileName // Your Custom directory name/Your Image file name
+                            );
+                    DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                    manager.enqueue(request);
+                    Toast.makeText(getApplicationContext(), "Đang tải xuống..."  + fileName, Toast.LENGTH_SHORT).show();
+                    registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+                }catch (Exception e){
+                    Toast.makeText(DashboardActivity.this, "Lỗi tải xuống " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("fileName", "Lỗi tải xuống " + e.getMessage());
+
+                }
+
+            }
+            BroadcastReceiver onComplete = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if(progressBar.getVisibility() == ProgressBar.VISIBLE){
+                        progressBar.setVisibility(ProgressBar.GONE);
+                    }
+
+                    Toast.makeText(getApplicationContext(), "Tải xuống hoàn tất", Toast.LENGTH_SHORT).show();
+                }
+            };
         });
 
         myWebView.setWebViewClient(new WebViewClient() {

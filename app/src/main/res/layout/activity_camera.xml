@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CameraActivity"
-    android:background="@drawable/custom_background"
-    android:id="@+id/swipe">
+    android:background="@drawable/custom_background">
 
             <org.videolan.libvlc.util.VLCVideoLayout
                 android:id="@+id/videoLayout"

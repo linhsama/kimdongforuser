@@ -1,0 +1,25 @@
+<!-- bottom_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottom_dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/baseline_space_dashboard_24"/>
+    <item
+        android:id="@+id/bottom_camera"
+        android:title="Camera"
+        android:icon="@drawable/baseline_camera_24"/>
+    <item
+        android:id="@+id/bottom_notifications"
+        android:title="Notifications"
+        android:icon="@drawable/baseline_notifications_active_24"/>
+    <item
+        android:id="@+id/bottom_reload"
+        android:title="Reload"
+        android:icon="@drawable/baseline_replay_circle_filled_24"/>
+    <item
+        android:id="@+id/bottom_back"
+        android:title="Back"
+        android:icon="@drawable/baseline_arrow_back_ios_24"/>
+</menu>
+
